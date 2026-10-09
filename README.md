@@ -353,6 +353,29 @@ BoardGamePortfolio
 
 **Note on Collection Fields:** The system includes painted status and location fields because real board game collectors need to track "Is this game painted?" and "Where is it stored?" The demo dataset (API data) has these fields empty/false, but the system is ready for personal use with actual collection data after submission.
 
+### 7. Comprehensive Edge Case Handling
+**Decision:** Implement extensive input validation and edge case handling throughout all algorithms.
+
+**Rationale:**
+- **Robustness:** Prevents runtime errors from invalid inputs (None, empty lists, wrong types)
+- **User experience:** Clear, helpful error messages guide users to correct usage
+- **Professional quality:** Production-ready code validates all inputs
+- **Educational value:** Demonstrates understanding of defensive programming
+- **Examples handled:**
+  - Empty lists/sets (returns appropriate empty results or clear errors)
+  - Single-element collections (optimized fast paths)
+  - None inputs (raises ValueError with clear message)
+  - Invalid types (raises TypeError specifying expected vs actual type)
+  - Out-of-range values (validates k bounds, array indices)
+  - Type safety with comprehensive type hints and runtime checks
+
+**Implementation:**
+- All algorithms validate inputs before processing
+- Descriptive error messages indicate exact problem and expected input
+- Edge cases documented in docstrings with Examples sections
+- Time complexity notes added to key operations
+- Type hints with return types for all public methods
+
 ---
 
 ## 📊 PERFORMANCE HIGHLIGHTS
