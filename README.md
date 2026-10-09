@@ -68,6 +68,8 @@ This comprehensive portfolio system demonstrates mastery of fundamental data str
 
 7. **Comprehensive Documentation**
    - Performance Analysis Report (PERFORMANCE_ANALYSIS_REPORT.md)
+   - Final Presentation (CSC506_FinalPortfolio_Middleton_Ruth.pptx)
+   - Presentation Script (FINAL_PRESENTATION.md - for reference)
    - This README with usage instructions
    - Inline code documentation
    - Design decision explanations
@@ -259,7 +261,10 @@ BoardGameProject_Fixed/
 │
 ├── DOCUMENTATION
 ├── README.md                        # This file
-└── games_data.json                  # Board game data (150+ games)
+├── PERFORMANCE_ANALYSIS_REPORT.md   # Comprehensive performance analysis
+├── FINAL_PRESENTATION.md            # Presentation script and content
+├── CSC506_FinalPortfolio_Middleton_Ruth.pptx  # PowerPoint presentation
+└── board_games_data.json            # Board game data (150+ games)
 ```
 
 ### Class Hierarchy
@@ -625,7 +630,7 @@ For questions about this project:
 
 **Project Status:** ✅ Complete - All requirements met
 
-**Last Updated:** October 6, 2026
+**Last Updated:** October 9, 2026
 
 ---
 
