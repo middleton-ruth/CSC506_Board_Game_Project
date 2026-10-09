@@ -69,7 +69,6 @@ This comprehensive portfolio system demonstrates mastery of fundamental data str
 7. **Comprehensive Documentation**
    - Performance Analysis Report (PERFORMANCE_ANALYSIS_REPORT.md)
    - Final Presentation (CSC506_FinalPortfolio_Middleton_Ruth.pptx)
-   - Presentation Script (FINAL_PRESENTATION.md - for reference)
    - This README with usage instructions
    - Inline code documentation
    - Design decision explanations
