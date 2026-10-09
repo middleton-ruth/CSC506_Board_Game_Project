@@ -17,14 +17,20 @@ class BubbleSort:
     complex objects like BoardGame instances.
     """
 
-    def __init__(self, visualize: bool = True, delay: float = 0.0):
+    def __init__(self, visualize: bool = True, delay: float = 0.0) -> None:
         """
         Initialize bubble sort.
 
         Args:
             visualize: Whether to print step-by-step visualization
             delay: Delay in seconds between steps (for animation effect)
+
+        Raises:
+            ValueError: If delay is negative
         """
+        if delay < 0:
+            raise ValueError(f"Delay must be non-negative, got {delay}")
+
         self.visualize = visualize
         self.delay = delay
         self.comparison_count = 0
@@ -40,7 +46,30 @@ class BubbleSort:
 
         Returns:
             Sorted list of integers
+
+        Raises:
+            TypeError: If arr is not a list
+            ValueError: If arr is None or contains non-integer values
         """
+        # Edge case: Validate input
+        if arr is None:
+            raise ValueError("Input array cannot be None")
+        if not isinstance(arr, list):
+            raise TypeError(f"Expected list, got {type(arr).__name__}")
+
+        # Edge case: Empty list
+        if len(arr) == 0:
+            return []
+
+        # Edge case: Single element
+        if len(arr) == 1:
+            return arr.copy()
+
+        # Validate all elements are integers
+        for i, elem in enumerate(arr):
+            if not isinstance(elem, (int, float)):
+                raise ValueError(f"Element at index {i} is not a number: {elem} (type: {type(elem).__name__})")
+
         # Create a copy to avoid modifying original
         arr_copy = arr.copy()
         n = len(arr_copy)
@@ -113,7 +142,27 @@ class BubbleSort:
 
         Returns:
             Sorted list of BoardGame objects
+
+        Raises:
+            TypeError: If games is not a list or key is not callable
+            ValueError: If games is None or empty
         """
+        # Edge case: Validate input
+        if games is None:
+            raise ValueError("Games list cannot be None")
+        if not isinstance(games, list):
+            raise TypeError(f"Expected list, got {type(games).__name__}")
+        if not callable(key):
+            raise TypeError("Key must be a callable function")
+
+        # Edge case: Empty list
+        if len(games) == 0:
+            raise ValueError("Cannot sort empty list of games")
+
+        # Edge case: Single element
+        if len(games) == 1:
+            return games.copy()
+
         # Create a copy to avoid modifying original
         games_copy = games.copy()
         n = len(games_copy)
@@ -183,10 +232,17 @@ class BubbleSort:
 
     def get_statistics(self) -> dict:
         """
-        Get sorting statistics.
+        Get sorting statistics from the most recent sort operation.
 
         Returns:
-            Dictionary with comparison and swap counts
+            Dictionary with comparison and swap counts, including:
+                - comparisons: Number of element comparisons
+                - swaps: Number of element swaps
+                - total_operations: Sum of comparisons and swaps
+
+        Note:
+            Returns statistics from the most recent sort operation.
+            If no sort has been performed, all counts will be 0.
         """
         return {
             'comparisons': self.comparison_count,

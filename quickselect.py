@@ -17,19 +17,23 @@ class QuickSelect:
     smallest element without fully sorting the list.
     """
 
-    def __init__(self, verbose: bool = True):
+    def __init__(self, verbose: bool = True) -> None:
         """
-        Initialize quickselect.
+        Initialize quickselect algorithm.
 
         Args:
-            verbose: Whether to print detailed steps
+            verbose: Whether to print detailed steps during execution
+
+        Note:
+            When verbose=True, prints partition details and search progress.
+            When verbose=False, runs silently for performance testing.
         """
         self.verbose = verbose
         self.partition_count = 0
 
     def find_kth_smallest_integer(self, arr: List[int], k: int) -> int:
         """
-        Find the kth smallest integer in a list.
+        Find the kth smallest integer in a list using quickselect algorithm.
 
         Args:
             arr: List of integers
@@ -39,10 +43,43 @@ class QuickSelect:
             The kth smallest element
 
         Raises:
-            ValueError: If k is out of range
+            TypeError: If arr is not a list or contains non-numeric values
+            ValueError: If arr is None, empty, or k is out of range
+
+        Examples:
+            >>> qs = QuickSelect(verbose=False)
+            >>> qs.find_kth_smallest_integer([3, 1, 4, 1, 5, 9, 2, 6], 3)
+            2
+            >>> qs.find_kth_smallest_integer([10, 20, 30], 1)
+            10
         """
+        # Edge case: Validate input
+        if arr is None:
+            raise ValueError("Input array cannot be None")
+        if not isinstance(arr, list):
+            raise TypeError(f"Expected list, got {type(arr).__name__}")
+
+        # Edge case: Empty list
+        if len(arr) == 0:
+            raise ValueError("Cannot find kth element in empty list")
+
+        # Edge case: Validate k range
+        if not isinstance(k, int):
+            raise TypeError(f"k must be an integer, got {type(k).__name__}")
         if k < 1 or k > len(arr):
-            raise ValueError(f"k must be between 1 and {len(arr)}")
+            raise ValueError(f"k must be between 1 and {len(arr)}, got {k}")
+
+        # Edge case: Single element
+        if len(arr) == 1:
+            if k == 1:
+                return arr[0]
+            else:
+                raise ValueError(f"k={k} is out of range for single-element list")
+
+        # Validate all elements are numeric
+        for i, elem in enumerate(arr):
+            if not isinstance(elem, (int, float)):
+                raise ValueError(f"Element at index {i} is not numeric: {elem} (type: {type(elem).__name__})")
 
         # Create a copy to avoid modifying original
         arr_copy = arr.copy()
@@ -70,19 +107,45 @@ class QuickSelect:
                                 key: Callable[[BoardGame], Any],
                                 key_name: str = "value") -> BoardGame:
         """
-        Find the kth smallest game by a given key.
+        Find the kth smallest game by a given key using quickselect.
 
         Args:
             games: List of BoardGame objects
             k: The position to find (1-indexed)
-            key: Function to extract the comparison key
-            key_name: Name of the key for display
+            key: Function to extract the comparison key from each game
+            key_name: Name of the key for display purposes
 
         Returns:
-            The kth smallest BoardGame object
+            The kth smallest BoardGame object according to the key
+
+        Raises:
+            TypeError: If games is not a list or key is not callable
+            ValueError: If games is None, empty, or k is out of range
         """
+        # Edge case: Validate input
+        if games is None:
+            raise ValueError("Games list cannot be None")
+        if not isinstance(games, list):
+            raise TypeError(f"Expected list, got {type(games).__name__}")
+        if not callable(key):
+            raise TypeError("Key must be a callable function")
+
+        # Edge case: Empty list
+        if len(games) == 0:
+            raise ValueError("Cannot find kth element in empty games list")
+
+        # Edge case: Validate k
+        if not isinstance(k, int):
+            raise TypeError(f"k must be an integer, got {type(k).__name__}")
         if k < 1 or k > len(games):
-            raise ValueError(f"k must be between 1 and {len(games)}")
+            raise ValueError(f"k must be between 1 and {len(games)}, got {k}")
+
+        # Edge case: Single element
+        if len(games) == 1:
+            if k == 1:
+                return games[0]
+            else:
+                raise ValueError(f"k={k} is out of range for single-element list")
 
         # Create list of (key_value, game) tuples for sorting
         keyed_games = [(key(game), game) for game in games]
@@ -111,17 +174,44 @@ class QuickSelect:
 
     def find_median(self, arr: List[int]) -> float:
         """
-        Find the median value using quickselect.
+        Find the median value using quickselect algorithm.
 
         Args:
             arr: List of integers
 
         Returns:
             Median value (average of two middle elements for even-length lists)
+
+        Raises:
+            TypeError: If arr is not a list
+            ValueError: If arr is None or empty
+
+        Examples:
+            >>> qs = QuickSelect(verbose=False)
+            >>> qs.find_median([1, 2, 3, 4, 5])
+            3.0
+            >>> qs.find_median([1, 2, 3, 4])
+            2.5
+
+        Note:
+            For odd-length lists, returns the middle element.
+            For even-length lists, returns the average of the two middle elements.
         """
+        # Edge case: Validate input
+        if arr is None:
+            raise ValueError("Input array cannot be None")
+        if not isinstance(arr, list):
+            raise TypeError(f"Expected list, got {type(arr).__name__}")
+
         n = len(arr)
+
+        # Edge case: Empty list
         if n == 0:
             raise ValueError("Cannot find median of empty list")
+
+        # Edge case: Single element
+        if n == 1:
+            return float(arr[0])
 
         if n % 2 == 1:
             # Odd length - return middle element

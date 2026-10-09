@@ -16,15 +16,24 @@ class CustomSet:
     implementing union, intersection, difference, and symmetric difference.
     """
 
-    def __init__(self, elements: Optional[List[Any]] = None):
+    def __init__(self, elements: Optional[List[Any]] = None) -> None:
         """
         Initialize a set with optional elements.
 
         Args:
             elements: Initial elements for the set (duplicates will be removed)
+
+        Raises:
+            TypeError: If elements is not a list or None
+
+        Note:
+            Duplicate elements in the input list will be automatically removed.
+            None values are allowed as set elements.
         """
         self._elements = []
-        if elements:
+        if elements is not None:
+            if not isinstance(elements, list):
+                raise TypeError(f"Elements must be a list or None, got {type(elements).__name__}")
             for elem in elements:
                 self.add(elem)
 
@@ -103,7 +112,22 @@ class CustomSet:
 
         Returns:
             New CustomSet containing all elements from both sets
+
+        Raises:
+            TypeError: If other is not a CustomSet instance
+
+        Examples:
+            >>> s1 = CustomSet([1, 2, 3])
+            >>> s2 = CustomSet([3, 4, 5])
+            >>> s1.union(s2).to_list()
+            [1, 2, 3, 4, 5]
+
+        Note:
+            Time complexity: O(m + n) where m and n are the sizes of the sets.
         """
+        if not isinstance(other, CustomSet):
+            raise TypeError(f"Union requires CustomSet, got {type(other).__name__}")
+
         result = CustomSet()
         # Add all elements from this set
         for elem in self._elements:
@@ -122,7 +146,22 @@ class CustomSet:
 
         Returns:
             New CustomSet containing only common elements
+
+        Raises:
+            TypeError: If other is not a CustomSet instance
+
+        Examples:
+            >>> s1 = CustomSet([1, 2, 3, 4])
+            >>> s2 = CustomSet([3, 4, 5, 6])
+            >>> s1.intersection(s2).to_list()
+            [3, 4]
+
+        Note:
+            Time complexity: O(min(m, n)) where m and n are the sizes of the sets.
         """
+        if not isinstance(other, CustomSet):
+            raise TypeError(f"Intersection requires CustomSet, got {type(other).__name__}")
+
         result = CustomSet()
         for elem in self._elements:
             if other.contains(elem):
@@ -138,7 +177,22 @@ class CustomSet:
 
         Returns:
             New CustomSet containing elements only in this set
+
+        Raises:
+            TypeError: If other is not a CustomSet instance
+
+        Examples:
+            >>> s1 = CustomSet([1, 2, 3, 4, 5])
+            >>> s2 = CustomSet([4, 5, 6, 7])
+            >>> s1.difference(s2).to_list()
+            [1, 2, 3]
+
+        Note:
+            Time complexity: O(m) where m is the size of this set.
         """
+        if not isinstance(other, CustomSet):
+            raise TypeError(f"Difference requires CustomSet, got {type(other).__name__}")
+
         result = CustomSet()
         for elem in self._elements:
             if not other.contains(elem):
@@ -154,7 +208,23 @@ class CustomSet:
 
         Returns:
             New CustomSet containing elements in exactly one of the sets
+
+        Raises:
+            TypeError: If other is not a CustomSet instance
+
+        Examples:
+            >>> s1 = CustomSet([1, 2, 3, 4])
+            >>> s2 = CustomSet([3, 4, 5, 6])
+            >>> sorted(s1.symmetric_difference(s2).to_list())
+            [1, 2, 5, 6]
+
+        Note:
+            Time complexity: O(m + n) where m and n are the sizes of the sets.
+            Also known as XOR operation in set theory.
         """
+        if not isinstance(other, CustomSet):
+            raise TypeError(f"Symmetric difference requires CustomSet, got {type(other).__name__}")
+
         result = CustomSet()
         # Add elements in this set but not in other
         for elem in self._elements:
