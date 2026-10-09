@@ -1,8 +1,8 @@
 # COMPREHENSIVE PERFORMANCE ANALYSIS REPORT
 ## Board Game Collection Management System
 
-**Course Portfolio Project - Data Structures & Algorithms**
-**Date:** October 6, 2026
+**Course Portfolio Project - CSC506 Design and Analysis of Algorithms**
+**Date:** October 11, 2026
 **Author:** Ruth Middleton
 
 ---
